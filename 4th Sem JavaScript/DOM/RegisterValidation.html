@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Registration Form</title>
+    <style>
+      body {
+        display: flex;
+        justify-content: center;
+        height: 100vh;
+        align-items: center;
+      }
+
+      .main {
+        height: auto;
+        width: 300px;
+      }
+
+      #fs {
+        border: 2px solid black;
+        padding: 10px;
+      }
+
+      .red {
+        color: red;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="main">
+      <form id="form">
+        <fieldset id="fs">
+          <legend>User Registration</legend>
+          <label for="fname">First Name:</label>
+          <input type="text" id="fname" />
+          <p id="err1" class="red"></p>
+          <label for="lname">Last Name: </label>
+          <input type="text" id="lname" />
+          <p id="err2" class="red"></p>
+          <label for="email">Email:</label>
+          <input type="text" id="email" />
+          <p id="err3" class="red"></p>
+          <label for="phone">Phone:</label>
+          <input type="number" id="phone" />
+          <p id="err4" class="red"></p>
+          <label for="country">Country:</label>
+          <select id="country">
+            <option value="">Select Country</option>
+            <option value="Nepal" selected>Nepal</option>
+            <option value="India">India</option>
+            <option value="Japan">Japan</option>
+            <option value="USA">USA</option>
+          </select>
+          <p id="err5" class="red"></p>
+          <label>Gender:</label>
+          <label for="male">Male</label>
+          <input type="radio" name="gender" id="male" />
+          <label for="Female">Female</label>
+          <input type="radio" name="gender" id="Female" />
+          <p id="err6" class="red"></p>
+
+          <input type="checkbox" id="chkb" />
+          <label for="chkb">I accept the terms and Conditions</label>
+          <p id="err7" class="red"></p>
+          <button id="btn">Register</button>
+          <input type="reset" />
+          <p id="result"></p>
+        </fieldset>
+      </form>
+    </div>
+
+    <script>
+      const form = document.getElementById("form");
+      form.addEventListener("submit", (e) => {
+        e.preventDefault();
+        const fname = document.getElementById("fname").value;
+        const lname = document.getElementById("lname").value;
+        const email = document.getElementById("email").value;
+        const phone = document.getElementById("phone").value;
+        const country = document.getElementById("country").value;
+        const male = document.getElementById("male").checked;
+        const female = document.getElementById("Female").checked;
+        const checkbox = document.getElementById("chkb").checked;
+
+        const error1 = document.getElementById("error1");
+        const error2 = document.getElementById("error2");
+        const error3 = document.getElementById("error3");
+        const error4 = document.getElementById("error4");
+        const error5 = document.getElementById("error5");
+        const error6 = document.getElementById("error6");
+        const error7 = document.getElementById("error7");
+        const result = document.getElementById("result");
+
+        let isFormValid = true;
+        if (fname.trim() === "") {
+          error1.textContent = "First Name cannot be empty";
+          isFormValid = false;
+        } else if (fname.length < 5) {
+          error1.textContent = "Frist Name cannot be less than 5 Characters";
+          isFormValid = false;
+        } else if (fname.length > 20) {
+          error1.textContent = "First Name cannot be more than 20 characters";
+          isFormValid = false;
+        } else {
+          error1.textContent = "";
+        }
+
+        if (lname.trim() === "") {
+          error2.textContent = "First Name cannot be empty";
+          isFormValid = false;
+        } else if (lname.length < 3) {
+          error2.textContent = "Last Name cannot be less than 3 Characters";
+          isFormValid = false;
+        } else if (lname.length > 20) {
+          error2.textContent = "Last Name cannot be more than 20 characters";
+          isFormValid = false;
+        } else {
+          error2.textContent = "";
+        }
+
+        let emailRegex =
+          /^[a-z0-9_\-\.]+[@][a-z]+[\.][a-z]{2,}[\.]?[a-z]{0,}$/;
+        if (email.trim() === "") {
+          error3.textContent = "Email cannot be set Empty";
+          isFormValid = false;
+        } else if (!emailRegex.test(email)) {
+          error3.textContent = "Email is in invalid format!";
+          isFormValid = false;
+        } else {
+          error3.textContent = "";
+        }
+        let phoneRegex = /^[0-9]{10}$/;
+        if (phone.trim() === "") {
+          error4.textContent = "Phone number cannot be empty";
+          isFormValid = false;
+        } else if (!phoneRegex.test(phone)) {
+          error4.textContent = "Phone must be 10 digits only";
+          isFormValid = false;
+        } else {
+          error4.textContent = "";
+        }
+
+        if(!country){
+          error5.textContent = "At least one country should be selected";
+          isFormValid = false;
+        }else{
+          error6 = "";
+        }
+        if (!male && !female) {
+          error6.textContent = "Please select a gender";
+          isFormValid = false;
+        } else {
+          error6.textContent = "";
+        }
+
+        if (!checkbox) {
+          error7.textContent = "Please accept the terms and conditions";
+          isFormValid = false;
+        } else {
+          error7.textContent = "";
+        }
+
+        if (isFormValid) {
+          result.textContent = "Registration Sucessfull";
+        }else{
+          result.textContent = "Registration Failed! Try Again.";
+        }
+      });
+    </script>
+  </body>
+</html>

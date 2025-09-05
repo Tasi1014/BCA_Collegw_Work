@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Events</title>
+    <style>
+      /* .error{
+            color: red;
+        } */
+    </style>
+  </head>
+  <body>
+    <!DOCTYPE html>
+    <html lang="en">
+      <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Registration Form</title>
+        <style>
+          .red {
+            color: red;
+          }
+
+          body {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #f2f4f7;
+          }
+
+          #main {
+            border: 2px solid black;
+            border-radius: 15px;
+            width: 300px;
+            padding: 20px;
+            background-color: #ffffff;
+            border: none;
+          }
+
+          #Form {
+            display: flex;
+            flex-direction: column;
+          }
+
+          p {
+            margin: 10px 0 5px 0;
+          }
+
+          input {
+            font-size: 20px;
+            padding: 10px;
+            border-radius: 20px;
+            border: 1px solid gray;
+          }
+
+          #btn {
+            padding: 8px;
+            border-radius: 5px;
+            border: none;
+            background-color: #1877f2;
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 18px;
+          }
+        </style>
+      </head>
+      <body>
+        <div id="main">
+          <form id="Form">
+            <input
+              type="text"
+              name="username"
+              id="userName"
+              placeholder="Username"
+            />
+            <p id="err1" class="red"></p>
+            <input type="text" name="email" placeholder="Email" id="email" />
+            <p id="err2" class="red"></p>
+            <input type="password" name="pw" placeholder="Password" id="pw" />
+            <p id="err3" class="red"></p>
+            <input
+              type="password"
+              name="re-pw"
+              placeholder="Re-Enter Password"
+              id="re-pw"
+            />
+            <p id="err4" class="red"></p>
+            <button id="btn">Register</button>
+            <p id="result"></p>
+          </form>
+        </div>
+
+        <script src="register.js"></script>
+      </body>
+    </html>
+
+    <script>
+         const form = document.getElementById("Form");
+         const userName = document.getElementById("userName");
+         const email = document.getElementById("email");
+         const pw = document.getElementById("pw");
+         const rePw = document.getElementById("re-pw");
+         const error1 = document.getElementById("err1");
+         const error2 = document.getElementById("err2");
+         const error3 = document.getElementById("err3");
+         const error4 = document.getElementById("err4");
+         const result = document.getElementById("result");
+         let isFormValid = true;
+
+         let emailRegex = /^[a-z0-9_\-\.]+[@][a-z]+[\.][a-z]{2,3}[\.]?[a-z]{0,3}$/;
+         const userNameRegex = /^[A-Za-z]+$/
+         userName.addEventListener("input", (e) => {
+           if (e.target.value.trim() === "") {
+             error1.textContent = "Username cannot be set empty";
+             isFormValid = false;
+           } else if (!userNameRegex.test(e.target.value.trim())) {
+             error1.textContent = "Only alphabets are allowed for Username";
+             isFormValid = false;
+           } else if (e.target.value.length < 3 || e.target.value.length > 15) {
+             error1.textContent =
+               "Username cannot be less than 3 and greater than 15";
+             isFormValid = false;
+           } else {
+             error1.textContent = "";
+           }
+         });
+
+         email.addEventListener("input",(e)=>{
+           if(email.trim() === ""){
+       error2.textContent = "Email cannot be set Empty";
+       isFormValid = false;
+      }else if(!emailRegex.test(email)){
+       error2.textContent = "Email is in invalid format!";
+       isFormValid = false;
+      }else{
+       error2.textContent = "";
+      }
+         })
+    </script>
+  </body>
+</html>

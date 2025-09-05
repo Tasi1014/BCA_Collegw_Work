@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Log In</title>
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #f2f4f7;
+      }
+      .main {
+        height: auto;
+        width: 300px;
+        border: none;
+        border-radius: 10px;
+        padding: 20px;
+        background-color: #ffffff;
+      }
+      form {
+        display: flex;
+        flex-direction: column;
+      }
+
+      p{
+        margin: 10px 0 5px 0; /* p tag automatically takes margin of 16px so i reset it tp margin top 10px and all others to 0   */
+      }
+
+      .red {
+        color: red;
+      }
+
+      #btn {
+        width: 100%;
+        padding: 8px;
+        margin-top: 10px;
+        border: none;
+        border-radius: 5px;
+        background-color: #007bff;
+        color: white;
+        cursor: pointer;
+      }
+
+      #userName,
+      #pw {
+        padding: 10px;
+        border-radius: 5px;
+        outline: none;
+        border: 1px solid gray;
+        width: 100%;
+        transition: 0.2s ease-in;
+      }
+
+      #userName:focus,
+      #pw:focus {
+        border: 1px solid blue;
+        box-shadow: 0 0 5px rgba(24, 119, 242, 0.5); 
+      }
+    </style>
+  </head>
+  <body>
+    <div class="main">
+      <form id="form">
+        <input type="text" placeholder="UserName or Email" id="userName" />
+        <p id="error1" class="red"></p>
+        <input type="password" placeholder="Password" id="pw" />
+        <p id="error2" class="red"></p>
+        <button id="btn">Log in</button>
+        <p id="result"></p>
+      </form>
+      <script src="formValidation.js"></script>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration Form</title>
+    <style>
+        .red{
+            color: red;
+        }
+
+        body{
+            height: 100vh;
+            display: flex;;
+            justify-content: center;
+            align-items: center;
+            background-color: #F2F4F7;
+        }
+
+        #main{
+            border: 2px solid black;
+            border-radius: 15px;
+            width: 300px;
+            padding: 20px;
+            background-color: #FFFFFF;
+            border: none;
+        }
+
+        #Form{
+            display: flex;
+            flex-direction: column;
+        }
+
+        p{
+            margin : 10px 0 5px 0;
+        }
+
+        input{
+            font-size: 20px;
+            padding: 10px;
+            border-radius: 20px;
+            border : 1px solid gray;
+        }
+
+        #btn{
+            padding: 8px;
+            border-radius: 5px;
+            border: none;
+            background-color:#1877F2;
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 18px;
+        }
+
+    </style>
+</head>
+<body>
+    <div id="main">
+        <form id="Form">
+        <input type="text" name="username" id="userName" placeholder="Username">
+        <p id="err1" class="red"></p>
+        <input type="text" name="email" placeholder="Email" id="email">
+        <p id="err2" class="red"></p>
+        <input type="password" name="pw" placeholder="Password" id="pw">
+        <p id="err3" class="red"></p>
+        <input type="password" name="re-pw" placeholder="Re-Enter Password" id="re-pw">
+        <p id="err4" class="red"></p>
+        <button id="btn">Register</button>
+        <p id="result"></p>
+    </form>
+    </div>
+
+
+    <script src="register.js"></script>
+</body>
+</html>

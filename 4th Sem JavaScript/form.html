@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Validation</title>
+    <style>
+        .red{
+            color: red;
+        }
+    </style>
+  </head>
+  <body>
+    <h1>Add Product</h1>
+    <form id="form">
+      <label for="name">Product Name:</label>
+      <input type="text" id="name" /><br />
+      <p id="error1" class="red"></p>
+
+      <label for="price">Price</label>
+      <input type="number" id="price" /><br />
+      <p id="error2" class="red"></p>
+
+      <label for="quantity">Quantity</label>
+      <input type="number" id="quantity" /><br />
+      <p id="error3" class="red"></p>
+
+      <label for="category">Category</label>
+      <select id="category">
+        <option value="null" selected>Select Category</option>
+        <option value="Shoes">Shoes</option>
+        <option value="Clothing">Clothing</option>
+        <option value="Sports">Sports</option></select
+      ><br />
+      <p id="error4" class="red"></p>
+
+      <label>Type</label>
+      <input type="radio" name="type" id="new" />
+      <label for="new">New</label>
+      <input type="radio" name="type" id="likenew" />
+      <label for="likenew">Like New</label>
+      <p id="error5" class="red"></p>
+
+      <button id="btn">Submit</button>
+      <p id="result"></p>
+    </form>
+
+    <script>
+      const form = document.getElementById("form");
+      form.addEventListener("submit", (e) => {
+        e.preventDefault();
+
+        const name = document.getElementById("name").value;
+        const price = document.getElementById("price").value;
+        const quantity = document.getElementById("quantity").value;
+        const category = document.getElementById("category").value;
+        const isNew = document.getElementById("new").checked;
+        const isLikeNew = document.getElementById("likenew").checked;
+
+        const error1 = document.getElementById("error1");
+        const error2 = document.getElementById("error2");
+        const error3 = document.getElementById("error3");
+        const error4 = document.getElementById("error4");
+        const error5 = document.getElementById("error5");
+        const result = document.getElementById("result");
+
+        let isFormValid = true;
+        if (name === "") {
+          error1.textContent = "Name cannot be empty";
+          isFormValid = false;
+        } else if (name.length < 3) {
+          error1.textContent = "Name cannot be less than 3 characters";
+          isFormValid = false;
+        } else if (name.length > 15) {
+          error1.textContent = "Name cannot be more than 15 characters";
+          isFormValid = false;
+        } else {
+          error1.textContent = "";
+        }
+
+        if (quantity < 10) {
+          error3.textContent = "Quantity cannot be less than 10";
+          isFormValid = false;
+        } else if (quantity > 100) {
+          error3.textContent = "Quantity cannot be greater than 100";
+          isFormValid = false;
+        } else {
+          error3.textContent = "";
+        }
+        if (category === "null") {
+          error4.textContent = "At least one category should be selected";
+          isFormValid = false;
+        } else {
+          error4.textContent = "";
+        }
+
+        if (!isNew && !isLikeNew) {
+          error5.textContent = "Please select a type";
+          isFormValid = false;
+        } else {
+          error5.textContent = "";
+        }
+
+        if (isFormValid) {
+          result.textContent = "Submitted Successfully!";
+          result.style.color = "green";
+        } else {
+          result.textContent = "Failed!";
+          result.style.color = "red";
+        }
+      });
+    </script>
+  </body>
+</html>
