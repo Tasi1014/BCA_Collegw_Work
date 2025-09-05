@@ -40,7 +40,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $update_result = mysqli_query($conn, $update_Sql);
 
     if ($update_result) {
-        header('Location : product.php');
+        header('Location: product.php');
         exit();
     } else {
         echo "Error! Failed to update the records!";
@@ -72,7 +72,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         <label for="category">Category</label>
         <select name="category">
-            <option value="" disabled>Select Category</option>
+            <option value="" >Select Category</option>
             <option value="Shoes" <?php if ($product['Category'] == "Shoes")
                 echo "selected"; ?>>Shoes</option>
             <option value="Clothing" <?php if ($product['Category'] == "Clothing")
