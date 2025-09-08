@@ -1,17 +1,15 @@
 <?php
-session_start();
-if(!isset($_SESSION['username'])){
-    if (isset($_SESSION['remember_name'])) {
-        $_SESSION['username'] = $_SESSION['remember_name'];
-    } else {
-        header('Location: login.php');
-        exit;
-    }
+// session_start();
+// if(!isset($_SESSION['name'])){
+//   header('Location: login.php');
+//   exit;
+// }
+if(!isset($_COOKIE['name'])){
+  header('Location: login.php');
+  exit;
 }
 
 ?>
-
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -28,7 +26,7 @@ if(!isset($_SESSION['username'])){
 <body>
     <h1>Welcome Page</h1>
     <?php
-    echo "Welcome: ". $_SESSION['username'];
+    echo "Welcome: ". $_COOKIE['name'];
     ?>
 
     <a href="logout.php">Logout here</a>
