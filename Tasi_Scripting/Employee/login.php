@@ -1,13 +1,17 @@
 <?php
-session_start();
-if (isset($_SESSION['username'])) {
-    header('Location: welcome.php');
-    exit();
-}
 
 $name = $password = "";
 
 include 'connection.php';
+
+session_start();
+// Prefill if "Remember Me" session exists
+if (isset($_SESSION['remember_name'])) {
+    $name = $_SESSION['remember_name'];
+}
+if (isset($_SESSION['remember_password'])) {
+    $password = $_SESSION['remember_password'];
+}
 
 $errors = array();
 
@@ -38,8 +42,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             //Get student data in indexed array
             // $student = mysqli_fetch_array($result,MYSQLI_NUM);
-
             $_SESSION['username'] = $records['username'];
+            // Remember Me using session
+            if (!empty($_POST['chk'])) {
+                $_SESSION['remember_name'] = $name;
+                $_SESSION['remember_password'] = $password;
+            } else {
+                unset($_SESSION['remember_name'], $_SESSION['remember_password']);
+            }
             header('Location: welcome.php');
             exit();
         } else {
@@ -67,12 +77,14 @@ mysqli_close($conn);
     <div class="main">
         <form id="form" method="POST">
             <label>Username:</label>
-            <input type="text" name="name" value=""><br>
+            <input type="text" name="name" value="<?= $name ?>"><br>
             <p class="red"><?= $errors['name'] ?? '' ?></p>
 
             <label>Password:</label>
-            <input type="password" name="password" value=""><br>
+            <input type="password" name="password" value="<?= $password ?>"><br>
             <p class="red"><?= $errors['password'] ?? '' ?></p>
+            <input type="checkbox" id="chk" name="chk" <?= isset($_SESSION['remember_name']) ? 'checked' : '' ?>>
+            <label for="chk">Remember me?</label><br><br>
             <button type="submit">Log In</button><br><br>
             <span>Not yet Registered?<a href="registration.php">Register Here</a></span>
             <p class="red"><?= $errors['result'] ?? '' ?></p>
