@@ -1,7 +1,7 @@
 <?php
 session_start();        // Start the session
-unset($_SESSION['username']);
-
+session_unset();
+session_destroy();
 header('Location: login.php'); // Redirect to login page
 
 exit();

@@ -12,11 +12,84 @@ $result =  mysqli_query($conn, $sql);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Display Records</title>
+    <style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f0f2f5;
+        display: flex;
+        justify-content: center;
+        padding: 20px;
+    }
+    caption{
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 3rem;
+            color: #007bff;
+        }
+
+    table {
+        border-collapse: collapse;
+        width: 100%;
+        max-width: 1000px;
+        background-color: #fff;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        border-radius: 10px;
+        overflow: hidden;
+    }
+
+    th, td {
+        padding: 12px 15px;
+        text-align: center;
+        border-bottom: 1px solid #ddd;
+    }
+
+    th {
+        background-color: #007bff;
+        color: white;
+        font-weight: bold;
+    }
+
+    tr:nth-child(even) {
+        background-color: #f9f9f9;
+    }
+
+    tr:hover {
+        background-color: #f1f1f1;
+        transition: 0.2s;
+    }
+
+    a {
+        color: white;
+        text-decoration: none;
+        padding: 5px 10px;
+        border-radius: 5px;
+    }
+
+    a[href*="delete"] {
+        background-color: #dc3545;
+    }
+
+    a[href*="update"] {
+        background-color: #28a745;
+    }
+
+    a:hover {
+        opacity: 0.8;
+    }
+
+    p {
+        text-align: center;
+        font-size: 18px;
+        color: #555;
+    }
+</style>
+
 </head>
 <body>
     <?php if(mysqli_num_rows($result)>0): ?>
 
     <table border="1" style="border-collapse: collapse">
+        <caption>Employee Records</caption>
         <tr>
             <th>ID</th>
             <th>Username</th>

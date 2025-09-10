@@ -64,9 +64,9 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         $result = mysqli_query($conn, $sql);
 
         header('Location: login.php');
-        $errors['result'] = "<p style='color:green'>Registration Successful!</p>";
+        // $errors['result'] = "<p style='color:green'>Registration Successful!</p>";
     } else {
-        $errors['result'] = "<p style='color:red'>Error Registration unsuccessfull </p>";
+         $errors['result'] = "<p style='color:red'>Error Registration unsuccessfull </p>";
     }
 }
 
@@ -84,66 +84,226 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registration Form</title>
     <style>
+        * {
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .form-heading {
+            text-align: center;
+            margin-bottom: 20px;
+            color: green;
+        }
+
+
         .red {
             color: red;
+        }
+
+        body {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: green;
+        }
+
+        .main {
+            width: auto;
+            background-color: #FEFEFE;
+            padding: 10px;
+            border-radius: 10px;
+            box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
+        }
+
+        label{
+            color: green;
+            font-weight: 500;
+        }
+
+        button {
+            width: 100%;
+            height: 35px;
+            font-size: 20px;
+            font-weight: 600;
+            margin-top: 10px;
+            border: none;
+            border-radius: 5px;
+            background-color: green;
+            color: white;
+            cursor: pointer;
+        }
+
+        #reset {
+            width: 100%;
+            height: 35px;
+            font-size: 20px;
+            font-weight: 600;
+            margin-top: 10px;
+            border: none;
+            border-radius: 5px;
+            background-color: #007bff;
+            color: white;
+            cursor: pointer;
+        }
+
+        .input {
+            width: 100%;
+        }
+
+        #username,
+        #pw,
+        #phone,
+        #email {
+            padding: 10px;
+            border-radius: 5px;
+            outline: none;
+            border: 1px solid gray;
+            width: 100%;
+            transition: 0.2s ease-in;
+        }
+
+        #username:focus,
+        #pw:focus,
+        #phone:focus,
+        #email:focus {
+            border: 1px solid blue;
+            box-shadow: 0 0 5px rgba(24, 119, 242, 0.5);
+        }
+
+        .group1,
+        .group2 {
+            display: flex;
+            gap: 10px;
+        }
+
+        .formgrp {
+            flex: 1;
+            /* Make both inputs equal width */
+        }
+
+        select {
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid gray;
+            width: 100%;
+            transition: 0.2s ease-in;
+        }
+
+        select:focus {
+            border: 1px solid blue;
+            box-shadow: 0 0 5px rgba(24, 119, 242, 0.5);
+        }
+
+        input[type="radio"],
+        input[type="checkbox"] {
+            accent-color: green;
+            /* Makes radios & checkboxes match your theme */
+        }
+
+        .group3 {
+            display: flex;
+            gap: 10px;
+        }
+
+        .group3 .formgrp {
+            flex: 1;
+        }
+
+        #reset {
+            background-color: #6c757d;
+        }
+
+        #reset:hover {
+            background-color: #5a6268;
+        }
+
+        .gender-options {
+            display: flex;
+            flex-wrap: nowrap;
+            /* Prevent wrapping */
+            gap: 10px;
+            /* Space between buttons */
+            align-items: center;
         }
     </style>
 </head>
 
 <body>
-    <form method="POST">
-        <fieldset>
-            <legend>Registration Form</legend>
+    <div class="main">
+        <h1 class="form-heading">Registration Form</h1>
+        <form method="POST">
+            <div class="group1">
+                <div class="formgrp">
+                    <label>Username:</label>
+                    <input type="text" name="name" value="<?= $name ?>" class="input" id="username"><br>
+                    <p class="red"><?= $errors['name'] ?? '' ?></p>
+                </div>
 
-            <label>Username:</label>
-            <input type="text" name="name" value="<?= $name ?>"><br>
-            <p class="red"><?= $errors['name'] ?? '' ?></p>
+                <div class="formgrp">
+                    <label>Password:</label>
+                    <input type="password" name="password" class="input" id="pw"><br>
+                    <p class="red"><?= $errors['password'] ?? '' ?></p>
+                </div>
+            </div>
 
-            <label>Password:</label>
-            <input type="password" name="password"><br>
-            <p class="red"><?= $errors['password'] ?? '' ?></p>
+            <div class="group2">
+                <div class="formgrp">
+                    <label>Email:</label>
+                    <input type="text" name="email" value="<?= $email ?>" class="input" id="email"><br>
+                    <p class="red"><?= $errors['email'] ?? '' ?></p>
+                </div>
 
-            <label>Email:</label>
-            <input type="text" name="email" value="<?= $email ?>"><br>
-            <p class="red"><?= $errors['email'] ?? '' ?></p>
+                <div class="formgrp">
+                    <label>Phone:</label>
+                    <input type="text" name="phone" value="<?= $phone ?>" class="input" id="phone"><br>
+                    <p class="red"><?= $errors['phone'] ?? '' ?></p>
+                </div>
+            </div>
 
-            <label>Phone:</label>
-            <input type="text" name="phone" value="<?= $phone ?>"><br>
-            <p class="red"><?= $errors['phone'] ?? '' ?></p>
+            <div class="group3">
 
-            <label>Position:</label>
-            <select name="position">
-                <option value="">Select Position</option>
-                <option value="Frontend Developer" <?= $position == "Frontend Developer" ? "selected" : "" ?>>Frontend
-                    Developer</option>
-                <option value="Backend Developer" <?= $position == "Backend Developer" ? "selected" : "" ?>>Backend
-                    Developer
-                </option>
-                <option value="QA Engineer" <?= $position == "QA Engineer" ? "selected" : "" ?>>QA Engineer</option>
-                <option value="DevOps Engineer" <?= $position == "DevOps Engineer" ? "selected" : "" ?>>DevOps Engineer
-                </option>
-            </select>
-            <p class="red"><?= $errors['position'] ?? '' ?></p>
+                <div class="formgrp">
+                    <label>Position:</label>
+                    <select name="position">
+                        <option value="">Select Position</option>
+                        <option value="Frontend Developer" <?= $position == "Frontend Developer" ? "selected" : "" ?>>
+                            Frontend
+                            Developer</option>
+                        <option value="Backend Developer" <?= $position == "Backend Developer" ? "selected" : "" ?>>Backend
+                            Developer
+                        </option>
+                        <option value="QA Engineer" <?= $position == "QA Engineer" ? "selected" : "" ?>>QA Engineer
+                        </option>
+                        <option value="DevOps Engineer" <?= $position == "DevOps Engineer" ? "selected" : "" ?>>DevOps
+                            Engineer
+                        </option>
+                    </select>
+                    <p class="red"><?= $errors['position'] ?? '' ?></p>
+                </div>
 
-            <label>Gender:</label>
-            <label><input type="radio" name="gender" value="Male" <?= $gender == "Male" ? "checked" : "" ?>> Male</label>
-            <label><input type="radio" name="gender" value="Female" <?= $gender == "Female" ? "checked" : "" ?>>
-                Female</label>
-            <label><input type="radio" name="gender" value="Others" <?= $gender == "Others" ? "checked" : "" ?>>
-                Others</label>
-            <p class="red"><?= $errors['gender'] ?? '' ?></p>
+                <div class="formgrp">
+                    <label>Gender:</label>
+                    <div class="gender-options">
+                        <label><input type="radio" name="gender" value="Male" <?= $gender == "Male" ? "checked" : "" ?>>
+                            Male</label>
+                        <label><input type="radio" name="gender" value="Female" <?= $gender == "Female" ? "checked" : "" ?>> Female</label>
+                        <label><input type="radio" name="gender" value="Others" <?= $gender == "Others" ? "checked" : "" ?>> Others</label>
+                    </div>
+                    <p class="red"><?= $errors['gender'] ?? '' ?></p>
+                </div>
+            </div>
 
             <label><input type="checkbox" name="terms" <?= $terms ? "checked" : "" ?>> I accept the terms &
                 conditions</label>
             <p class="red"><?= $errors['terms'] ?? '' ?></p>
 
-            <button type="submit">Register</button>
-            <input type="reset">
+            <button type="submit">Register</button><br>
+            <input type="reset" id="reset">
 
             <p> <?= $errors['result'] ?? '' ?> </p>
-        </fieldset>
+    </div>
     </form>
-
 </body>
 
 </html>

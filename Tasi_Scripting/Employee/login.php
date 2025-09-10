@@ -71,23 +71,102 @@ mysqli_close($conn);
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Log In</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            height: 100vh;
+            align-items: center;
+            background-color: green;
+        }
+
+        .main {
+            border: none;
+            border-radius: 10px;
+            background-color: #FEFEFE;
+            padding: 10px;
+            box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
+        }
+
+        h2 {
+            color: #7AA1D8;
+            text-align: center;
+        }
+
+        .input-form {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid gray;
+            outline: none;
+            border-radius: 5px;
+        }
+
+        .input-form:focus {
+            border: 1px solid blue;
+            box-shadow: 0 0 5px rgba(24, 119, 242, 0.5);
+        }
+
+        input[type="checkbox"] {
+            accent-color: green;
+        }
+
+        button {
+            height: 35px;
+            background-color: green;
+            font-weight: 700;
+            text-align: center;
+            border-radius: 5px;
+            color: white;
+            width: 100%;
+            font-size: 20px;
+
+        }
+
+        span {
+            display: block;
+            text-align: center;
+        }
+
+        a {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: green;
+            padding: 10px;
+            background: green;
+            height: 35px;
+            width: 100%;
+            font-size: 20px;
+            border-radius: 5px;
+            font-weight: 700;
+            color: white;
+            border-radius: 5px;
+            text-decoration: none;
+        }
+    </style>
 </head>
 
 <body>
     <div class="main">
+        <h2>Login Form</h2>
         <form id="form" method="POST">
             <label>Username:</label>
-            <input type="text" name="name" value="<?= $name ?>"><br>
+            <input type="text" name="name" value="<?= $name ?>" class="input-form">
             <p class="red"><?= $errors['name'] ?? '' ?></p>
 
             <label>Password:</label>
-            <input type="password" name="password" value="<?= $password ?>"><br>
+            <input type="password" name="password" value="<?= $password ?>" class="input-form">
             <p class="red"><?= $errors['password'] ?? '' ?></p>
             <input type="checkbox" id="chk" name="chk" <?= isset($_SESSION['remember_name']) ? 'checked' : '' ?>>
             <label for="chk">Remember me?</label><br><br>
-            <button type="submit">Log In</button><br><br>
-            <span>Not yet Registered?<a href="registration.php">Register Here</a></span>
-            <p class="red"><?= $errors['result'] ?? '' ?></p>
+            <button type="submit">Log In</button>
+            <p><?= $errors['result'] ?? ''?></p>
+            <a href="registration.php">Register Here</a>
         </form>
     </div>
 </body>

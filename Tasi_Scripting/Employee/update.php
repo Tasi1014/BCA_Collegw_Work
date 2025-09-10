@@ -5,22 +5,22 @@ $name = $email = $phone = $position = $gender = "";
 $terms = $remember = false;
 
 $errors = array();
-if($_GET['sid']){
-$id = $_GET['sid'];
+if ($_GET['sid']) {
+    $id = $_GET['sid'];
 }
-        $sql = "SELECT * FROM employees WHERE id ='$id'";
-        $result = mysqli_query($conn, $sql);
+$sql = "SELECT * FROM employees WHERE id ='$id'";
+$result = mysqli_query($conn, $sql);
 
-        if(mysqli_num_rows($result) == 0){
-            echo "No students records found";
-        }else{
-            $records = mysqli_fetch_assoc($result);
-        }
+if (mysqli_num_rows($result) == 0) {
+    echo "No students records found";
+} else {
+    $records = mysqli_fetch_assoc($result);
+}
 
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
     // Validate Name
-    if (isset($_POST['name'])&& !empty($_POST['name']) && trim($_POST['name'])) {
+    if (isset($_POST['name']) && !empty($_POST['name']) && trim($_POST['name'])) {
         $name = trim($_POST['name']);
     } else {
         $errors['name'] = "Name must be 3-15 alphabetic characters.";
@@ -74,22 +74,20 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
         $update_result = mysqli_query($conn, $update_sql);
 
-        if($update_result){
-             $errors['result'] = "<p style='color:green'> Records Successfully inserted</p>";
-             header('Location: view-records.php');
-        }else{
-            {
-            $errors['result']= "<p style='color:red'>Error Updation unsuccessfull </p>";
+        if ($update_result) {
+            $errors['result'] = "<p style='color:green'> Records Successfully inserted</p>";
+            header('Location: view-records.php');
+        } else { {
+                $errors['result'] = "<p style='color:red'>Error Updation unsuccessfull </p>";
+            }
         }
-        }
-    }else {
-            $errors['result']= "<p style='color:red'>Error unsuccessfull </p>";
-        }
+    } else {
+        $errors['result'] = "<p style='color:red'>Error unsuccessfull </p>";
+    }
 }
 
 
 ?>
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -97,61 +95,174 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registration Form</title>
+    <title>Update Form</title>
     <style>
+        * {
+            box-sizing: border-box;
+            font-family: system-ui;
+        }
+
+        body {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: green;
+        }
+
+        .main {
+            width: auto;
+            background-color: #FEFEFE;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
+        }
+
+        .form-heading {
+            text-align: center;
+            color: green;
+            margin-bottom: 20px;
+        }
+
+        label{
+            color: green;
+            font-weight: 500;
+        }
+        .group1,
+        .group2,
+        .group3 {
+            display: flex;
+            gap: 10px;
+        }
+
+        .formgrp {
+            flex: 1;
+        }
+
+        .input,
+        select {
+            width: 100%;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid gray;
+            outline: none;
+            transition: 0.2s;
+        }
+
+        .input:focus,
+        select:focus {
+            border: 1px solid blue;
+            box-shadow: 0 0 5px rgba(24, 119, 242, 0.5);
+        }
+
+        button,
+        #reset {
+            width: 100%;
+            padding: 8px;
+            margin-top: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button {
+            background-color:green;
+            color: white;
+        }
+
+        #reset {
+            background-color: #6c757d;
+            color: white;
+        }
+
+        #reset:hover {
+            background-color: #5a6268;
+        }
+
+        .gender-options {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
         .red {
             color: red;
+        }
+
+        input[typye = "checkbox", "radio" ]{
+            accent-color : green;
         }
     </style>
 </head>
 
 <body>
-<form method="POST">
-    <fieldset>
-        <legend>Registration Form</legend>
+    <div class="main">
+        <h2 class="form-heading">Update Form</h2>
+        <form method="POST">
+            <div class="group1">
+                <div class="formgrp">
+                    <label>Username:</label>
+                    <input type="text" name="name" class="input" value="<?= $records['username'] ?>">
+                    <p class="red"><?= $errors['name'] ?? '' ?></p>
+                </div>
+                <div class="formgrp">
+                    <label>Password:</label>
+                    <input type="password" name="password" class="input" value="<?= $records['password'] ?>">
+                    <p class="red"><?= $errors['password'] ?? '' ?></p>
+                </div>
+            </div>
 
-        <label>Username:</label>
-        <input type="text" name="name" value="<?= $records['username'] ?>"><br>
-        <p class="red"><?= $errors['name'] ?? '' ?></p>
+            <div class="group2">
+                <div class="formgrp">
+                    <label>Email:</label>
+                    <input type="text" name="email" class="input" value="<?= $records['email'] ?>">
+                    <p class="red"><?= $errors['email'] ?? '' ?></p>
+                </div>
+                <div class="formgrp">
+                    <label>Phone:</label>
+                    <input type="text" name="phone" class="input" value="<?= $records['phone'] ?>">
+                    <p class="red"><?= $errors['phone'] ?? '' ?></p>
+                </div>
+            </div>
 
-        <label>Password:</label>
-            <input type="password" name="password" value = "<?= $records['password'] ?>"><br>
-            <p class="red"><?= $errors['password'] ?? '' ?></p>
+            <div class="group3">
+                <div class="formgrp">
+                    <label>Position:</label>
+                    <select name="position">
+                        <option value="">Select Position</option>
+                        <option value="Frontend Developer" <?= $records['position'] == "Frontend Developer" ? "selected" : "" ?>>Frontend Developer</option>
+                        <option value="Backend Developer" <?= $records['position'] == "Backend Developer" ? "selected" : "" ?>>
+                            Backend Developer</option>
+                        <option value="QA Engineer" <?= $records['position'] == "QA Engineer" ? "selected" : "" ?>>QA Engineer
+                        </option>
+                        <option value="DevOps Engineer" <?= $records['position'] == "DevOps Engineer" ? "selected" : "" ?>>
+                            DevOps Engineer</option>
+                    </select>
+                    <p class="red"><?= $errors['position'] ?? '' ?></p>
+                </div>
+                <div class="formgrp">
+                    <label>Gender:</label>
+                    <div class="gender-options">
+                        <label><input type="radio" name="gender" value="Male" <?= $records['gender'] == "Male" ? "checked" : "" ?>> Male</label>
+                        <label><input type="radio" name="gender" value="Female"
+                                <?= $records['gender'] == "Female" ? "checked" : "" ?>> Female</label>
+                        <label><input type="radio" name="gender" value="Others"
+                                <?= $records['gender'] == "Others" ? "checked" : "" ?>> Others</label>
+                    </div>
+                    <p class="red"><?= $errors['gender'] ?? '' ?></p>
+                </div>
+            </div>
 
-        <label>Email:</label>
-        <input type="text" name="email" value="<?= $records['email'] ?>"><br>
-        <p class="red"><?= $errors['email'] ?? '' ?></p>
+            <label><input type="checkbox" name="terms" <?= $records['terms_and_conditions'] ? "checked" : "" ?>> I accept the
+                terms & conditions</label>
+            <p class="red"><?= $errors['terms'] ?? '' ?></p>
 
-        <label>Phone:</label>
-        <input type="text" name="phone" value="<?= $records['phone'] ?>"><br>
-        <p class="red"><?= $errors['phone'] ?? '' ?></p>
+            <button type="submit">Update</button>
 
-        <label>Position:</label>
-        <select name="position">
-            <option value="">Select Position</option>
-            <option value="Frontend Developer" <?php if($records['position'] == 'Frontend Developer'){ echo "selected"; } ?>>Frontend Developer</option>
-            <option value="Backend Developer" <?php if($records['position'] == 'Backend Developer'){ echo "selected"; } ?>>Backend Developer</option>
-            <option value="QA Engineer" <?php if($records['position'] == 'QA Engineer'){ echo "selected"; } ?>>QA Engineer</option>
-            <option value="DevOps Engineer" <?php if($records['position'] == 'DevOps Engineer'){ echo "selected"; } ?>>DevOps Engineer</option>
-        </select>
-        <p class="red"><?= $errors['position'] ?? '' ?></p>
 
-        <label>Gender:</label>
-        <label><input type="radio" name="gender" value="Male" <?= $records['gender']=="Male"?"checked":"" ?>> Male</label>
-        <label><input type="radio" name="gender" value="Female" <?= $records['gender']=="Female"?"checked":"" ?>> Female</label>
-        <label><input type="radio" name="gender" value="Others" <?= $records['gender']=="Others"?"checked":"" ?>> Others</label>
-        <p class="red"><?= $errors['gender'] ?? '' ?></p>
-
-        <label><input type="checkbox" name="terms" <?= $records['terms_and_conditions']?"checked":"" ?>> I accept the terms & conditions</label>
-        <p class="red"><?= $errors['terms'] ?? '' ?></p>
-
-        <button type="submit">Update</button>
-        <input type="reset">
-
-        <p> <?= $errors['result'] ?? '' ?> </p>
-    </fieldset>
-</form>
-
+            <p><?= $errors['result'] ?? '' ?></p>
+        </form>
+    </div>
 </body>
 
 </html>
